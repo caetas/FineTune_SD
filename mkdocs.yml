@@ -1,0 +1,19 @@
+site_name: FineTune_SD
+site_description: Fine-Tuning a Stable Diffusion model on a limited amount of VRAM.
+site_author: Francisco Caetano
+
+#repo_url:
+
+theme:
+    name: 'material'
+    locale: en
+    font: false
+
+nav:
+    - Home: index.md
+
+# WIP
+#markdown_extensions:
+#  - mkautodoc
+#plugins:
+#  - mkdocs-jupyter

@@ -1,0 +1,11 @@
+# This file contains values from Cookiecutter
+
+default_context:
+  project_name: "Fine-Tuning Stable Diffusion"
+  repo_name: "FineTune_SD"
+  description: "Fine-Tuning a Stable Diffusion model on a limited amount of VRAM."
+  organization: "None"
+  license: "No license"
+  organization_email: "none@none.pt"
+  line_length: "120"
+  python_minimal_version: "3.9"
