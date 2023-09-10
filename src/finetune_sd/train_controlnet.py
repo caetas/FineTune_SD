@@ -139,6 +139,9 @@ def log_validation(vae, text_encoder, tokenizer, unet, controlnet, args, acceler
         ax[0].set_title('Conditioning Image')
         ax[1].imshow(save_img)
         ax[1].set_title('Generated Image')
+        # remove axis
+        for ax in fig.axes:
+            ax.axis('off')
         plt.title(validation_prompt)
         # name the image with the step
         img_name = str(step) + '.png'
