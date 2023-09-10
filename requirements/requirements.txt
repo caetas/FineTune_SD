@@ -21,9 +21,16 @@ s3fs==2022.1.0
 zulip==0.8.2
 
 datasets
+opencv-python
+matplotlib
 
 ##dl
 torch
 torchvision
 diffusers @ git+https://github.com/huggingface/diffusers
 xformers
+bitsandbytes
+accelerate
+transformers
+scipy
+fsspec
