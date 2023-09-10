@@ -94,6 +94,8 @@ target/
 # JetBrains Pycharm
 .idea
 
+#parquets
+*.parquet
 # VS Code
 .vscode/*
 !.vscode/settings.json
@@ -117,9 +119,10 @@ ipython_config.py
 notebook/.ipynb_checkpoints
 
 # exclude data from source control by default
-data/processed
+data/processed/
 data/interim
 data/external
+data/raw/
 # models directory
 /models/
 # test data directory

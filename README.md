@@ -1,6 +1,6 @@
 # Fine-Tuning Stable Diffusion
 
-[![Python](https://img.shields.io/badge/python-3.7+-informational.svg)]()
+[![Python](https://img.shields.io/badge/python-3.9+-informational.svg)]()
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org)
 [![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=black)](https://pycqa.github.io/isort)
@@ -13,7 +13,7 @@
 [![pytest](https://img.shields.io/badge/pytest-enabled-brightgreen)](https://github.com/pytest-dev/pytest)
 [![conventional-commits](https://img.shields.io/badge/conventional%20commits-1.0.0-yellow)](https://github.com/commitizen-tools/commitizen)
 
-Fine-Tuning a Stable Diffusion model on a limited amount of VRAM.
+Fine-Tuning a Stable Diffusion model on a limited amount of VRAM using a ControlNet. A dataset composed of Pokemon pictures with BLIP descriptions was modified to fine-tune Stable Diffusion 1.5. By generating sketch-like masks based on the original training set, the goal is to teach the original model to take scribbles (as well as the text prompts) as a conditioning mask for the generation of new Pokemons.
 
 ## Prerequisites
 
@@ -24,12 +24,13 @@ You will need:
 - `Make`
 - a `.secrets` file with the required secrets and credentials
 - load environment variables from `.env`
+- **A GPU with more than 8 GB of VRAM**
 
 ## Installation
 
 Clone this repository (requires git ssh keys)
 
-    git clone --recursive ssh://git@github.com/Fine-Tuning Stable Diffusion/finetune_sd.git
+    git clone --recursive git@github.com:caetas/FineTune_SD.git
     cd finetune_sd
 
 Install dependencies
@@ -46,16 +47,47 @@ And then setup all virtualenv using make file recipe
 
     (finetune_sd) $ make setup-all
 
-Use pre-commit hooks to standardize code formatting of your project and save mental energy.
-Simply install pre-commit package and pre-commit hooks with:
+## Download the Pokemon Dataset
 
-    make install-pre-commit
+The dataset can be downloaded from the following [link](https://huggingface.co/datasets/lambdalabs/pokemon-blip-captions). The **.parquet** file should be moved to the **data/raw** directory.
 
-After that your code will be automatically reformatted on every new commit.
+To process the images and generate the masks, please run the following command:
+
+```bash
+python prepare_dataset.py
+```
+
+The processed dataset will be stored in the **data/processed** folder.
+
+## Train the ControlNet
+
+Run the following commands:
+
+```bash
+chmod -X control_execute.sh
+bash control_execute.sh
+```
+
+**NOTE: You can skip the first command after the first execution.**
+
+## Results
+
+Although my input sketch is very rudimentary, the trained network can follow the provided textual and visual instructions to generate a new (very ugly) Pokemon.
+
+![One of the images generated during training](reports/figures/4000.png)
+
+You can check more examples in the [reports/figures](reports/figures/)
+
+## TO-DO
+- Add inference-only mode.
 
 ## Documentation
 
 Full documentation is available here: [`docs/`](docs).
+
+For more information on the Diffusers library implementation of ControlNet, you can visit the original [tutorials](https://huggingface.co/docs/diffusers/training/controlnet) 
+
+This code was adapted from the aforementioned tutorial and from the training scripts contained in the [Diffusers Repository](https://github.com/huggingface/diffusers), more precisely in the [examples folder](https://github.com/huggingface/diffusers/tree/main/examples/controlnet).
 
 ## Dev
 
