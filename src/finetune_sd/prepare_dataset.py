@@ -27,6 +27,9 @@ def create_sketch(image):
 # open parquet file
 df = pd.read_parquet('./../../data/raw/pokemons.parquet')
 
+# create the directories
+if not os.path.exists('./../../data/processed/'):
+    os.makedirs('./../../data/processed/')
 if not os.path.exists('./../../data/processed/pokemons/'):
     os.makedirs('./../../data/processed/pokemons/')
 if not os.path.exists('./../../data/processed/pokemons/images/'):

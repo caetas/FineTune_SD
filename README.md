@@ -76,6 +76,11 @@ Although my input sketch is very rudimentary, the trained network can follow the
 
 ![One of the images generated during training](reports/figures/4000.png)
 
+You can check more examples in the [reports/figures](reports/figures/)
+
+## TO-DO
+- Add inference-only mode.
+
 ## Documentation
 
 Full documentation is available here: [`docs/`](docs).
