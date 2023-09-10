@@ -33,4 +33,4 @@ bitsandbytes
 accelerate
 transformers
 scipy
-fsspec
+fsspec==2023.9.0

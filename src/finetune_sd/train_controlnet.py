@@ -37,6 +37,7 @@ from PIL import Image
 from torchvision import transforms
 from tqdm.auto import tqdm
 from transformers import AutoTokenizer, PretrainedConfig
+import matplotlib.pyplot as plt
 
 import diffusers
 from diffusers import (
@@ -128,6 +129,23 @@ def log_validation(vae, text_encoder, tokenizer, unet, controlnet, args, acceler
                 ).images[0]
 
             images.append(image)
+
+        # convert to np.array
+        save_img = np.array(image)
+        val_img = np.array(validation_image)
+        # plot side by side using matplotlib
+        fig, ax = plt.subplots(1, 2, figsize=(10, 10))
+        ax[0].imshow(val_img)
+        ax[0].set_title('Conditioning Image')
+        ax[1].imshow(save_img)
+        ax[1].set_title('Generated Image')
+        plt.title(validation_prompt)
+        # name the image with the step
+        img_name = str(step) + '.png'
+        # save the image in ./../../reports/figures
+        plt.savefig(os.path.join('./../../reports/figures', img_name))
+        # close the figure
+        plt.close(fig)
 
         image_logs.append(
             {"validation_image": validation_image, "images": images, "validation_prompt": validation_prompt}
@@ -516,13 +534,13 @@ def parse_args(input_args=None):
     parser.add_argument(
         "--num_validation_images",
         type=int,
-        default=4,
+        default=1,
         help="Number of images to be generated for each `--validation_image`, `--validation_prompt` pair",
     )
     parser.add_argument(
         "--validation_steps",
         type=int,
-        default=100,
+        default=500,
         help=(
             "Run validation every X steps. Validation consists of running the prompt"
             " `args.validation_prompt` multiple times: `args.num_validation_images`"
@@ -673,12 +691,20 @@ def make_train_dataset(args, tokenizer, accelerator):
     )
 
     def preprocess_train(examples):
-        images = [image.convert("RGB") for image in examples[image_column]]
-        images = [image_transforms(image) for image in images]
+        #check if the image column is a list of paths or a list of images
+        if isinstance(examples[image_column][0], str):
+            images = [Image.open(image).convert("RGB") for image in examples[image_column]]
+            images = [image_transforms(image) for image in images]
 
-        conditioning_images = [image.convert("RGB") for image in examples[conditioning_image_column]]
-        conditioning_images = [conditioning_image_transforms(image) for image in conditioning_images]
+            conditioning_images = [Image.open(image).convert("RGB") for image in examples[conditioning_image_column]]
+            conditioning_images = [conditioning_image_transforms(image) for image in conditioning_images]
+        else:
+            images = [image.convert("RGB") for image in examples[image_column]]
+            images = [image_transforms(image) for image in images]
 
+            conditioning_images = [image.convert("RGB") for image in examples[conditioning_image_column]]
+            conditioning_images = [conditioning_image_transforms(image) for image in conditioning_images]
+            
         examples["pixel_values"] = images
         examples["conditioning_pixel_values"] = conditioning_images
         examples["input_ids"] = tokenize_captions(examples)
