@@ -94,6 +94,8 @@ target/
 # JetBrains Pycharm
 .idea
 
+#parquets
+*.parquet
 # VS Code
 .vscode/*
 !.vscode/settings.json
