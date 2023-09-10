@@ -4,7 +4,6 @@ import numpy as np
 from PIL import Image
 from io import BytesIO
 import cv2
-import matplotlib.pyplot as plt
 
 def open_image(bytes_string):
     image = Image.open(BytesIO(bytes_string))
