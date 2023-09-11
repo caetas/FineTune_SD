@@ -543,7 +543,7 @@ def parse_args(input_args=None):
     parser.add_argument(
         "--validation_steps",
         type=int,
-        default=500,
+        default=1000,
         help=(
             "Run validation every X steps. Validation consists of running the prompt"
             " `args.validation_prompt` multiple times: `args.num_validation_images`"
