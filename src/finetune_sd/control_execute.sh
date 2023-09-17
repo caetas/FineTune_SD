@@ -25,5 +25,3 @@ accelerate launch train_controlnet.py \
 git add --all
 git commit -m "New results"
 git push
-
-poweroff
