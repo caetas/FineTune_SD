@@ -17,9 +17,11 @@ psycopg2-binary==2.9.2
 # Python-dotenv reads key-value pairs from a .env file and can set them as environment variables.
 # It helps in the development of applications following the 12-factor (https://12factor.net/) principles.
 python-dotenv==0.19.2
-s3fs==2022.1.0
+s3fs
 zulip==0.8.2
 
+streamlit
+streamlit-drawable-canvas
 datasets
 opencv-python
 matplotlib
