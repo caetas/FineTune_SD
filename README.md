@@ -65,7 +65,7 @@ Run the following commands:
 
 ```bash
 chmod -X control_execute.sh
-bash control_execute.sh
+bash train_script.sh
 ```
 
 **NOTE: You can skip the first command after the first execution.**
@@ -78,8 +78,13 @@ Although my input sketch is very rudimentary, the trained network can follow the
 
 You can check more examples in the [reports/figures](reports/figures/)
 
-## TO-DO
-- Add inference-only mode.
+## Inference Mode
+
+With a Streamlit app, you can draw your own sketch of a Pokemon and ask the pretrained ControlNet to generate an image based on your sketch and a prompt. The influence of the prompt and of the ControlNet can also be adjusted via some sliders.
+
+```bash
+streamlit run app.py
+```
 
 ## Documentation
 
