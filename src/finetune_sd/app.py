@@ -57,7 +57,7 @@ prompt = st.text_input("Prompt", value="a pokemon that looks like a dragon")
 if st.button('Generate Pokemon'):
     if canvas_result.image_data is not None:
         control_image = canvas_result.image_data.copy()
-        control_image = Image.fromarray(control_image, 'RGB')
+        control_image = Image.fromarray(control_image)
         # resize the Pillow image to 512x512
         control_image = control_image.resize((512, 512))
         image = generate_image(pipe, control_image, guidance_scale, controlnet_conditioning_scale, prompt)
