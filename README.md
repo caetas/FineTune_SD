@@ -74,7 +74,7 @@ bash train_script.sh
 
 Although my input sketch is very rudimentary, the trained network can follow the provided textual and visual instructions to generate a new (very ugly) Pokemon.
 
-![One of the images generated during training](reports/figures/4000.png)
+![One of the images generated during training](reports/figures/6000.png)
 
 You can check more examples in the [reports/figures](reports/figures/)
 
@@ -85,6 +85,11 @@ With a Streamlit app, you can draw your own sketch of a Pokemon and ask the pret
 ```bash
 streamlit run app.py
 ```
+The interface should look like this:
+
+<p align="center">
+  <img src="reports/interface.png" alt="Interface Example"/>
+</p>
 
 ## Documentation
 
